@@ -17,6 +17,9 @@ describe 'check' do
   before { proxy.start }
   after  { proxy.reset }
 
+  before { @save_tmpdir = ENV['TMPDIR'] ; ENV['TMPDIR'] ||= "/tmp" }
+  after  { ENV['TMPDIR'] = @save_tmpdir }
+
   context 'when working with an external API' do
     it 'makes requests with respect to that endpoint' do
       proxy.stub('https://test.example.com:443/repos/jtarchie/test/pulls')
